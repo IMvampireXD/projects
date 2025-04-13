@@ -1,0 +1,19 @@
+{
+    "name": "html-css",
+    "version": "1.0.0",
+    "description": "template",
+    "main": "index.html",
+    "scripts": {
+      "start": "serve"
+    },
+    "keywords": [
+      "html",
+      "css"
+    ],
+    "author": "IMvampireXD",
+    "license": "MIT",
+    "devDependencies": {
+      "serve": "11.2.0"
+    }
+  }
+  
