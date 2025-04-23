@@ -1,346 +1,473 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>finnafinest_'s Addons</title>
-    <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
-    <style>
-      @font-face {
-        font-family: 'Minecraft2';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Minecraft'),
-          url('https://fonts.cdnfonts.com/s/25041/1_MinecraftRegular1.woff')
-            format('woff');
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Minecraft', sans-serif;
-        color: white;
-        background-color: #1e1e1e;
-      }
-      #tsparticles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -1;
-      }
-      .title {
-        font-size: 60px;
-        text-align: center;
-        padding: 20px 0;
+<!DOCTYPE html> 
+ <html lang="en"> 
+   <head> 
+     <meta charset="UTF-8" /> 
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+     <title>finnafinest_'s Addons</title> 
+     <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" /> 
+     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script> 
+     <style>
+       @font-face { 
+        font-family: 'Minecraft2'; 
+        font-style: normal; 
+        font-weight: 400; 
+        src: local('Minecraft'), 
+         url('https://fonts.cdnfonts.com/s/25041/1_MinecraftRegular1.woff') 
+          format('woff'); 
+       } 
+       @keyframes fadeInUp { 
+        from { 
+         opacity: 0; 
+         transform: translateY(10px);
+        } 
+        to { 
+         opacity: 1; 
+         transform: translateY(0); 
+        }
+       } 
+       @keyframes slideUp { 
+        0% { 
+         transform: translateY(100%); 
+         opacity: 0; 
+        } 
+        100% { 
+         transform: translateY(-15px);
+         opacity: 1; 
+        } 
+       }
+       body { 
+        margin: 0; 
+        padding: 0; 
+        font-family: 'Minecraft', sans-serif; 
+        color: white; 
+        background-color: #1e1e1e; 
+        overflow-x: hidden;
+       } 
+       #tsparticles { 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100vw; 
+        height: 100vh; 
+        z-index: -1; 
+       }
+       .title { 
+        font-size: 60px; 
+        text-align: center; 
+        padding: 20px 0; 
         letter-spacing: 4px;
-        color: #f0f0f0;
-        text-shadow: 3px 3px 0 #444, 4px 4px 0 #333, 5px 5px 0 #222;
-        position: relative;
-        font-family: 'Minecraft', sans-serif;
-        z-index: 1;
-      }
-      .title::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        -webkit-text-stroke: 2px #000;
+        color: #f0f0f0; 
+        text-shadow: 3px 3px 0 #444, 4px 4px 0 #333, 5px 5px 0 #222; 
+        position: relative; 
+        font-family: 'Minecraft', sans-serif; 
+        z-index: 1; 
+        opacity: 0;
+        animation: fadeInUp 0.4s ease-out 0.1s forwards;
+       } 
+       .title::before { 
+        content: ''; 
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        -webkit-text-stroke: 2px #000; 
         z-index: -1;
-      }
-      .tabs {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        border-bottom: 3px solid #444;
-        padding: 0 10px;
-        z-index: 1;
-        position: relative;
-      }
-      .tab {
-        background-color: #444;
-        color: #eee;
-        padding: 12px 25px; 
-        margin: 0 8px;
-        border-radius: 8px 8px 0 0;
-        cursor: pointer;
-        font-family: 'Minecraft', sans-serif;
-        font-size: 20px;
-        transition: background-color 0.3s ease;
+       } 
+       .tabs { 
+        display: flex; 
+        justify-content: center; 
+        margin-top: 15px; /* Reduced top margin */ 
+        border-bottom: 3px solid #444; 
+        padding: 0 10px; 
+        z-index: 1; 
+        position: relative; 
+       } 
+       .tab { 
+        background-color: #444; 
+        color: #eee; 
+        padding: 10px 20px; 
+        margin: 0 6px; 
+        border-radius: 8px 8px 0 0; 
+        cursor: pointer; 
+        font-family: 'Minecraft', sans-serif; 
+        font-size: 18px;
+        transition: background-color 0.2s ease;
         text-shadow: 1px 1px 0 #222; 
-      }
-      .tab:hover {
-        background-color: #13d343;
-      }
-      .tab.active {
-        background-color: #666;
-        color: #fff;
-        text-shadow: 1px 1px 0 #333;
-      }
-      .tab a {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-      }
-      .content-container {
-        padding: 20px;
-        z-index: 1;
-        position: relative;
-      }
-      .addons-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .addon-box {
-        background-color: #333; 
-        border: 3px solid #555;
-        border-radius: 8px;
-        width: 400px;
-        height: 300px;
-        margin: 20px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        cursor: pointer;
-        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        overflow: hidden;
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
-        position: relative;
-      }
-      .addon-box:hover {
-        border-color: #50fa7b;
-        box-shadow: 6px 6px 15px rgba(80, 250, 123, 0.9);
-      }
-      .addon-content-container {
-        position: absolute;
-        bottom: 0;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.3s ease-out forwards;
+       } 
+       .tab:nth-child(1) { 
+        animation-delay: 0.3s; /*delay for tabs*/
+       } 
+       .tab:nth-child(2) { 
+        animation-delay: 0.4s; /*delay for tabs*/
+       }
+       .tab:nth-child(3) { 
+        animation-delay: 0.5s; /*delay for tabs*/
+       }
+       .tab:nth-child(4) { 
+        animation-delay: 0.6s; /*delay for tabs*/
+       }
+       .tab:hover { 
+        background-color: #008000; 
+       }
+       .tab.active { 
+        background-color: #666; 
+        color: #fff; 
+        text-shadow: 1px 1px 0 #333; 
+       } 
+       .tab a { 
+        text-decoration: none; 
+        color: inherit; 
+        display: block; 
+       } 
+       .content-wrapper { 
+        position: relative; 
+        min-height: 350px;
+       } 
+       .content-container { 
+        padding: 15px;
+        z-index: 1; 
+        opacity: 0;
+        transform: scale(0.99) translateY(5px); 
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        pointer-events: none;
+        position: absolute; 
+        top: 0; 
         left: 0;
         width: 100%;
-        background-color: rgba(51, 51, 51, 0.95);
-        padding: 20px;
         box-sizing: border-box;
-        transform: translateY(25px);
-        transition: transform 0.3s ease-in-out;
-      }
-      .addon-box:hover .addon-content-container {
-        transform: translateY(0);
-      }
-      .addon-header {
-        color: #eee;
-        text-align: left;
-        font-size: 22px;
-        font-family: 'Minecraft2';
-        -webkit-font-smoothing: antialiased;
-        margin-bottom: 8px;
-        text-shadow: 1px 1px 0 #222;
-      }
-      .addon-description {
-        color: #ddd;
-        font-size: 16px;
-        line-height: 1.4;
-        font-family: 'Minecraft2';
-        -webkit-font-smoothing: antialiased;
-        margin-top: 0;
-      }
-      .hidden {
-        display: none !important;
-      }
-      @media (max-width: 768px) {
-        .tabs {
-          flex-direction: row;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          justify-content: flex-start;
-          padding-left: 10px;
-          padding-right: 10px;
+        display: none;
+
+       }
+       .content-container.is-visible { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+        pointer-events: auto; 
+        position: relative;
+        display: block;
+       } 
+       .addons-container { 
+        display: flex; 
+        justify-content: center; 
+        flex-wrap: wrap; 
+       } 
+       .addon-box { 
+        background-color: #333; 
+        border: 3px solid #555; 
+        border-radius: 8px; 
+        width: 380px;
+        min-height: 140px; 
+        height: 280px; 
+        margin: 15px;
+        box-sizing: border-box; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: flex-end;
+        cursor: pointer; 
+        transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        overflow: hidden; 
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); 
+        position: relative; 
+        opacity: 0; 
+        transform: translateY(10px);
+        animation: fadeInUp 0.4s ease-out forwards;
+       }
+       #addons-content .addon-box:nth-child(1) { 
+        animation-delay: 0.7s;
+       }
+       #addons-content .addon-box:nth-child(2) { 
+        animation-delay: 0.8s;
+       } 
+       #addons-content .addon-box:nth-child(3) { 
+        animation-delay: 0.9s;
+       } 
+       #addons-content .addon-box:nth-child(4) { 
+        animation-delay: 1.0s;
+       }
+       .addon-box:hover { 
+        border-color: #50fa7b; 
+        box-shadow: 5px 5px 12px rgba(80, 250, 123, 0.9);
+       }
+       .addon-content-container { 
+        background-color: rgba(51, 51, 51, 0.95); 
+        padding: 15px; 
+        box-sizing: border-box; 
+        width: 100%;
+        transform: translateY(15%);
+        opacity: 1; 
+        transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+        position: absolute;
+        bottom: 0; 
+        left: 0; 
+       } 
+       .addon-box:hover .addon-content-container { 
+        transform: translateY(-15px);
+        opacity: 1;
+       } 
+       .addon-header { 
+        color: #eee; 
+        text-align: left; 
+        font-size: 20px;
+        font-family: 'Minecraft2'; 
+        -webkit-font-smoothing: antialiased; 
+        margin-bottom: 6px;
+        text-shadow: 1px 1px 0 #222; 
+       } 
+       .addon-description { 
+        color: #ddd; 
+        font-size: 15px;
+        line-height: 1.3;
+        font-family: 'Minecraft2'; 
+        -webkit-font-smoothing: antialiased; 
+        margin-top: 0; 
+       } 
+       @media (max-width: 768px) {
+        .tabs { 
+         flex-direction: row; 
+         overflow-x: auto; 
+         -webkit-overflow-scrolling: touch; 
+         justify-content: flex-start; 
+         padding-left: 10px; 
+         padding-right: 10px; 
         }
-        .tab {
-          margin: 0 5px;
-          border-radius: 8px 8px 0 0;
-          font-size: 18px;
-          padding: 10px 20px;
-          white-space: nowrap;
+        .tab { 
+         margin: 0 4px;
+         border-radius: 8px 8px 0 0; 
+         font-size: 16px;
+         padding: 8px 15px; 
+         white-space: nowrap; 
+        } 
+        .addons-container { 
+         justify-content: space-around; 
+         flex-direction: row; 
         }
-        .addons-container {
-          justify-content: space-around;
-          flex-direction: row;
-        }
+        .addon-box { 
+         width: calc(50% - 20px);
+         height: 230px; 
+         margin: 10px;
+        } 
+       } 
+       @media (max-width: 600px) { 
+        .title { 
+         font-size: 36px;
+        } 
+        .addons-container { 
+         flex-direction: column; 
+         align-items: center; 
+        } 
         .addon-box {
-          width: calc(50% - 30px);
-          height: auto;
-          margin: 15px;
+         width: 95%; 
+         height: 260px;
+         margin: 10px 0;
         }
-      }
-      @media (max-width: 600px) {
-        .addons-container {
-          flex-direction: column;
-          align-items: center;
-        }
-        .addon-box {
-          width: 90%;
-        }
-        .tab {
-          font-size: 16px;
-          padding: 8px 15px;
-        }
-        .addon-header {
-          font-size: 20px;
+        .tab { 
+         font-size: 15px;
+         padding: 6px 12px; 
+        } 
+        .addon-header { 
+         font-size: 18px;
         }
         .addon-description {
-          font-size: 14px;
+         font-size: 13px; 
+        } 
+        .addon-content-container { 
+         padding: 10px;
+         transform: translateY(0);
+         opacity: 1;
         }
-        .addon-content-container {
-          padding: 15px;
+        .addon-box:hover .addon-content-container { 
+         transform: translateY(-5px); 
         }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="tsparticles"></div>
-    <div class="title">finnafinest_'s Projects</div>
-    <div class="tabs">
-      <div class="tab active">
-        <a href="#addons">Addons</a>
-      </div>
-      <div class="tab">
-        <a href="#others">Others</a>
-      </div>
-      <div class="tab">
-        <a href="#social">Social</a>
-      </div>
-      <div class="tab">
-        <a href="#friends">Friends</a>
-      </div>
-    </div>
+       } 
+     </style> 
+   </head> 
+   <body> 
+     <div id="tsparticles"></div> 
+     <div class="title">finnafinest_'s Projects</div> 
+     <div class="tabs"> 
+       <div class="tab active"> 
+         <a href="#addons">Addons</a> 
+       </div> 
+       <div class="tab"> 
+         <a href="#others">Others</a> 
+       </div> 
+       <div class="tab">
+         <a href="#social">Social</a> 
+       </div> 
+       <div class="tab"> 
+         <a href="#friends">Friends</a> 
+       </div> 
+     </div> 
 
-    <div class="content-container" id="addons-content">
-      <div class="addons-container">
-        <div class="addon-box">
-          <div class="addon-content-container">
-            <h3 class="addon-header">Backpack Addon</h3>
-            <p class="addon-description">
-              This add-on adds Backpacks in game, where you can store items Which
-              helps while adventuring.
-            </p>
-          </div>
-        </div>
-        <div class="addon-box">
-          <div class="addon-content-container">
-            <h3 class="addon-header">Enchantments++ Addon</h3>
-            <p class="addon-description">
-              This addon makes the enchantment system better by adding alot of
-              enchantments for swords, pickaxes, axes, bows!
-            </p>
-          </div>
-        </div>
-        <div class="addon-box">
-          <div class="addon-content-container">
-            <h3 class="addon-header">WorldEdit Addon</h3>
-            <p class="addon-description">
-              A simple script about World Edit, for minecraft bedrock. Helps
-              building complex structures quickly and efficiently.
-            </p>
-          </div>
-        </div>
-        <div class="addon-box">
-          <div class="addon-content-container">
-            <h3 class="addon-header">TPA Addon</h3>
-            <p class="addon-description">
-              This TPA script adds a custom command with configurable prefix,
-              which allows players to send and manage teleport requests.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+     <div class="content-wrapper"> 
+       <div class="content-container is-visible" id="addons-content"> 
+         <div class="addons-container"> 
+           <div class="addon-box"> 
+             <div class="addon-content-container"> 
+               <h3 class="addon-header">Backpack Addon</h3> 
+               <p class="addon-description"> 
+                 This add-on adds Backpacks in game, where you can store items 
+                 Which helps while adventuring. 
+               </p> 
+             </div> 
+           </div> 
+           <div class="addon-box"> 
+             <div class="addon-content-container"> 
+               <h3 class="addon-header">Enchantments++ Addon</h3> 
+               <p class="addon-description"> 
+                 This addon makes the enchantment system better by adding alot of 
+                 enchantments for swords, pickaxes, axes, bows! 
+               </p> 
+             </div> 
+           </div> 
+           <div class="addon-box"> 
+             <div class="addon-content-container"> 
+               <h3 class="addon-header">WorldEdit Addon</h3> 
+               <p class="addon-description"> 
+                 A simple script about World Edit, for minecraft bedrock. Helps 
+                 building complex structures quickly and efficiently. 
+               </p>
+             </div>
+           </div>
+           <div class="addon-box"> 
+             <div class="addon-content-container">
+               <h3 class="addon-header">TPA Addon</h3> 
+               <p class="addon-description"> 
+                 This TPA script adds a custom command with configurable prefix, 
+                 which allows players to send and manage teleport requests. 
+               </p>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="content-container" id="others-content"> 
+         <p style="text-align: center; font-size: 24px; padding: 50px;"> 
+           Content for Others will go here. 
+         </p> 
+       </div> 
+       <div class="content-container" id="social-content"> 
+         <p style="text-align: center; font-size: 24px; padding: 50px;"> 
+           Content for Social will go here. 
+         </p>
+       </div> 
+       <div class="content-container" id="friends-content"> 
 
-    <div class="content-container hidden" id="others-content">
-      <p>Content for Others will go here.</p>
-    </div>
-
-    <div class="content-container hidden" id="social-content">
-      <p>Content for Social will go here.</p>
-    </div>
-
-    <div class="content-container hidden" id="friends-content">
-      <p>Content for Friends will go here.</p>
-    </div>
-
-    <script>
-      window.onload = () => {
-        tsParticles.load("tsparticles", {
-          background: { color: { value: "#1e1e1e" } },
-          fpsLimit: 60,
-          particles: {
-            number: {
-              value: 80, //particles
-              density: { enable: true, area: 800 }
-            },
-            color: { value: "#ccc" },
-            shape: { type: "circle" },
-            opacity: { value: 0.8 },
-            size: { value: { min: 1, max: 2 } },
-            links: {
-              enable: true,
-              distance: 100,
-              color: "#999",
-              opacity: 0.6,
-              width: 1
-            },
-            move: {
-              enable: true,
-              speed: 3, //speed
-              direction: "none",
-              random: true,
-              straight: false,
-              outModes: { default: "out" }
-            }
+         <p style="text-align: center; font-size: 24px; padding: 50px;"> 
+           Content for Friends will go here. 
+         </p> 
+       </div> 
+     </div> 
+     <script> 
+       window.onload = () => { 
+        tsParticles.load("tsparticles", { 
+         background: { color: { value: "#1e1e1e" } }, 
+         fpsLimit: 60, 
+         particles: { 
+          number: { 
+           value: 80, 
+           density: { enable: true, area: 800 }, 
           },
-          interactivity: {
-            events: {
-              onHover: { enable: true, mode: "grab" },
-              onClick: { enable: true, mode: "push" },
-              resize: true
-            },
-            modes: {
-              grab: { distance: 120, links: { opacity: 0.8 } },
-              push: { quantity: 2 }
-            }
+          color: { value: "#ccc" }, 
+          shape: { type: "circle" }, 
+          opacity: { value: 0.8 }, 
+          size: { value: { min: 1, max: 2 } }, 
+          links: { 
+           enable: true, 
+           distance: 100, 
+           color: "#999", 
+           opacity: 0.6, 
+           width: 1,
           },
-          detectRetina: true
-        });
-      };
-
-      document.addEventListener('DOMContentLoaded', function() {
-        const tabs = document.querySelectorAll('.tab');
-        const contentContainers = document.querySelectorAll('.content-container');
-
-        function showContent(id) {
-          contentContainers.forEach(container => {
-            container.classList.add('hidden');
-          });
-          const activeContainer = document.getElementById(id + '-content');
-          if (activeContainer) {
-            activeContainer.classList.remove('hidden');
+          move: { 
+           enable: true,
+           speed: 3, 
+           direction: "none", 
+           random: true, 
+           straight: false, 
+           outModes: { default: "out" },
+          },
+         },
+         interactivity: { 
+          events: { 
+           onHover: { enable: true, mode: "grab" }, 
+           onClick: { enable: true, mode: "push" }, 
+           resize: true, 
+          },
+          modes: { 
+           grab: { distance: 120, links: { opacity: 0.8 } }, 
+           push: { quantity: 2 }, 
+          },
+         }, 
+         detectRetina: true, 
+        }); 
+       }; 
+       document.addEventListener('DOMContentLoaded', function () { 
+        const tabs = document.querySelectorAll('.tab'); 
+        const contentContainers = document.querySelectorAll('.content-container'); 
+        const transitionDuration = 300;
+        function showContent(targetId) { 
+         const targetContainer = document.getElementById(targetId + '-content');
+         let currentVisible = null;
+         contentContainers.forEach(container => { 
+          if (container.classList.contains('is-visible')) { 
+           if (container !== targetContainer) { 
+            currentVisible = container 
+            container.classList.remove('is-visible'); // Start fade out 
+           } 
+          } else {
+           if (container !== targetContainer) { 
+            container.style.display = 'none';
+           }
           }
+         });
+         const showTarget = () => {
+          if (targetContainer) {
+           targetContainer.style.display = 'block'; 
+           requestAnimationFrame(() => { 
+            requestAnimationFrame(() => { // Double rAF for robustness in some browsers 
+             targetContainer.classList.add('is-visible'); // Start fade in 
+            });
+           });
+          }
+         };
+         if (currentVisible) { 
+          setTimeout(() => { 
+           currentVisible.style.display = 'none'; // Hide completely after transition 
+           showTarget(); 
+          }, transitionDuration); 
+         } else {
+          showTarget(); 
+         }
         }
-
-        tabs.forEach(tab => {
-          tab.addEventListener('click', function(event) {
-            event.preventDefault();
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            const targetId = this.querySelector('a').getAttribute('href').substring(1);
-            showContent(targetId);
-          });
-        });
-        showContent('addons');
-      });
-    </script>
-  </body>
-</html>
+        tabs.forEach(tab => { 
+         tab.addEventListener('click', function (event) { 
+          event.preventDefault();
+          if (this.classList.contains('active')) {
+           return;
+          }
+          tabs.forEach(t => t.classList.remove('active')); 
+          this.classList.add('active'); 
+          const targetId = this.querySelector('a').getAttribute('href').substring(1); 
+          showContent(targetId); 
+         }); 
+        }); 
+        const initialActiveTab = document.querySelector('.tabs .tab.active a'); 
+        if (initialActiveTab) { 
+         const initialId = initialActiveTab.getAttribute('href').substring(1); 
+         const initialContainer = document.getElementById(initialId + '-content'); 
+         if (initialContainer) { 
+          setTimeout(() => { 
+           initialContainer.style.display = 'block'; 
+           requestAnimationFrame(() => { 
+            initialContainer.classList.add('is-visible'); 
+           });
+          }, 10);//load delay
+         }
+        }
+       }); 
+     </script> 
+   </body> 
+ </html>
