@@ -77,7 +77,7 @@
        .tabs { 
         display: flex; 
         justify-content: center; 
-        margin-top: 15px; /* Reduced top margin */ 
+        margin-top: 15px;
         border-bottom: 3px solid #444; 
         padding: 0 10px; 
         z-index: 1; 
@@ -99,16 +99,16 @@
         animation: fadeInUp 0.3s ease-out forwards;
        } 
        .tab:nth-child(1) { 
-        animation-delay: 0.3s; /*delay for tabs*/
+        animation-delay: 0.3s;
        } 
        .tab:nth-child(2) { 
-        animation-delay: 0.4s; /*delay for tabs*/
+        animation-delay: 0.4s;
        }
        .tab:nth-child(3) { 
-        animation-delay: 0.5s; /*delay for tabs*/
+        animation-delay: 0.5s;
        }
        .tab:nth-child(4) { 
-        animation-delay: 0.6s; /*delay for tabs*/
+        animation-delay: 0.6s;
        }
        .tab:hover { 
         background-color: #008000; 
@@ -415,7 +415,7 @@
           if (container.classList.contains('is-visible')) { 
            if (container !== targetContainer) { 
             currentVisible = container 
-            container.classList.remove('is-visible'); // Start fade out 
+            container.classList.remove('is-visible'); //Start fade out 
            } 
           } else {
            if (container !== targetContainer) { 
@@ -427,15 +427,15 @@
           if (targetContainer) {
            targetContainer.style.display = 'block'; 
            requestAnimationFrame(() => { 
-            requestAnimationFrame(() => { // Double rAF for robustness in some browsers 
-             targetContainer.classList.add('is-visible'); // Start fade in 
+            requestAnimationFrame(() => {
+             targetContainer.classList.add('is-visible'); //Start fade in 
             });
            });
           }
          };
          if (currentVisible) { 
           setTimeout(() => { 
-           currentVisible.style.display = 'none'; // Hide completely after transition 
+           currentVisible.style.display = 'none'; //Hide  after transition 
            showTarget(); 
           }, transitionDuration); 
          } else {
